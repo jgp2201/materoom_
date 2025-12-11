@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String        @id @default(cuid())
+  email            String        @unique
+  passwordHash     String
+  name             String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  preferences      Preference?
+  requirements     Requirement[]
+  roomListings     RoomListing[]
+  sentRequests     TeamRequest[] @relation("SentRequests")
+  receivedRequests TeamRequest[] @relation("ReceivedRequests")
+}
+
+model Preference {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id])
+  budgetMin         Int?
+  budgetMax         Int?
+  preferredLocation String?
+  preferenceLabels  String? // comma-separated saved labels
+  bedrooms          Int?
+  bathrooms         Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Property {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  price       Int
+  location    String
+  bedrooms    Int
+  bathrooms   Int
+  areaSqFt    Int
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Requirement {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+  location          String
+  approxRent        Int
+  lookingFor        String // Male | Female | Any
+  occupancy         String // Single | Shared | Any
+  highlights        String? // comma-separated chips
+  interestedInPg    Boolean
+  phoneVisibility   String // public | private
+  interestedInTeams Boolean
+  description       String
+  createdAt         DateTime @default(now())
+}
+
+model RoomListing {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  location        String
+  approxRent      Int
+  occupancy       String // Single | Shared | Any
+  lookingFor      String? // Male | Female | Any
+  highlights      String? // comma-separated chips
+  amenities       String? // comma-separated
+  phoneVisibility String // public | private
+  description     String
+  createdAt       DateTime @default(now())
+}
+
+model TeamRequest {
+  id         String   @id @default(cuid())
+  senderId   String
+  sender     User     @relation("SentRequests", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User     @relation("ReceivedRequests", fields: [receiverId], references: [id])
+  status     String   @default("pending") // pending | accepted | rejected
+  message    String? // optional message from sender
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
