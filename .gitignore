@@ -12,8 +12,11 @@ dist
 dist-ssr
 *.local
 
-# Backend files (should not be in frontend repo)
-backend/
+
+/src/generated
+/prisma/generated
+/node_modules
+
 
 # Editor directories and files
 .vscode/*
