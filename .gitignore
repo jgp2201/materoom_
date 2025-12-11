@@ -33,3 +33,8 @@ dist-ssr
 /backend/src/generated
 /src/generated
 
+
+# Ignore generated Prisma client
+/backend/src/generated
+/src/generated
+
