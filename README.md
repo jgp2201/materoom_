@@ -5,7 +5,7 @@
 Developed a comprehensive roommate and PG accommodation platform with lifestyle-based matching, real-time messaging, and intelligent property search. Implemented features including JWT-based authentication, Socket.io real-time chat with typing indicators and online status, lifestyle compatibility matching using 12 preference factors (sleep schedule, dietary preferences, social habits, etc.), predictive rent pricing analysis, team formation system for group accommodations, and advanced filtering with location-based property discovery. Enhanced user experience through responsive design, preference-based recommendations, and seamless communication tools connecting seekers with property owners and potential roommates.
 
 
-## Key Metrics to Highlight (Verified from Codebase):
+## Key Metrics to Highlight :
 
 - **12 Lifestyle Preferences** - Sleep schedule, dietary preferences, social habits, fitness, music, smoking, alcohol, pets, travel, party, study, and fitness preferences
 - **Real-time Communication** - Socket.io-based chat with typing indicators, online status, and read receipts
@@ -17,4 +17,5 @@ Developed a comprehensive roommate and PG accommodation platform with lifestyle-
 ## Technical Stack:
 
 **Tech Stack:** React, TypeScript, Node.js, Express.js, Prisma (SQLite), Socket.io, Tailwind CSS, shadcn-ui, JWT, bcryptjs
+
 
